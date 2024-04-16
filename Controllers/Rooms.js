@@ -1,5 +1,4 @@
 import { Room } from "../Model/Rooms.js";
-import { Hotel } from "../Model/Hotels.js";
 import NotFoundError from "../errors/not-found.js";
 import { StatusCodes } from "http-status-codes";
 

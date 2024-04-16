@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import 'express-async-errors'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 dotenv.config()
 const app = express()
 
@@ -19,6 +20,12 @@ app.get('/', (req,res) => {
     res.send('<h1>Welcome to the Hotel server </h1>')
 })
 // Middlewares
+app.use(
+  cors({
+    // origin: "http://localhost:5173",
+    origin: "https://stay-wise-frontend-fg2l.vercel.app/",
+  })
+);
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())

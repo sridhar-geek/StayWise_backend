@@ -19,9 +19,14 @@ export const loginUser = async (req,res) => {
     if(!isPassword) throw new BadRequestError('Invalid Credentails')
     const token = await user.createToken();
 const {password: userPassword, ...userDetails} = user._doc
-res.cookie('access_token',token,{
+res
+  .cookie("access_token", token, {
     maxAge: 3600 * 1000,
     httpOnly: true,
-})
-.status(StatusCodes.OK).json({userDetails})
+      path: "/",
+      sameSite: process.env.ENVIRONMENT === "production" ? "None" : "strict", // 'None' for production, 'Lax' for development
+      secure: process.env.ENVIRONMENT === "production", // true for production, false for development
+  })
+  .status(StatusCodes.OK)
+  .json({ userDetails });
 }
