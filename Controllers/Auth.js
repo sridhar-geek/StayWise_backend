@@ -20,13 +20,10 @@ export const loginUser = async (req,res) => {
     const token = await user.createToken();
 const {password: userPassword, ...userDetails} = user._doc
 res
-  .cookie("access_token", token, {
-    maxAge: 3600 * 1000,
-    httpOnly: true,
-      path: "/",
-      sameSite: process.env.ENVIRONMENT === "production" ? "None" : "strict", // 'None' for production, 'Lax' for development
-      secure: process.env.ENVIRONMENT === "production", // true for production, false for development
-  })
+  // .cookie("access_token", token, {
+  //   maxAge: 3600 * 1000,
+  //   httpOnly: true,
+  // })
   .status(StatusCodes.OK)
-  .json({ userDetails });
+  .json({ userDetails, token });
 }

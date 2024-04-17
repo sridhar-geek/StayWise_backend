@@ -5,13 +5,12 @@ import jwt from "jsonwebtoken";
 import UnauthenticatedError from "../errors/unauthenticated.js";
 
 const autherization = async (req, res, next) => {
-  //  const header = req.headers.authorization
-  //     if(!header || !header.startsWith('Bearer'))
-  //         throw new UnauthenticatedError('Authentication invalid')
-
-  //     const token = header.split(' ')[1]
-
-  const token = req.cookies.access_token;
+  console.log('request came here')
+   const header = req.headers.authorization
+      if(!header || !header.startsWith('Bearer'))
+          throw new UnauthenticatedError('Authentication invalid')
+  const token = header.substring(7, header.length - 1);
+  // const token = req.cookies.access_token;
   if (!token) throw new UnauthenticatedError("Your not authenticated!");
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
